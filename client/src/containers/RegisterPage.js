@@ -1,8 +1,11 @@
+import Layout from "components/Layout";
+
+
 const RegisterPage = () => {
     return (
-        <div>
+        <Layout title='Alpha Invest | Register' content='Register Page'>
             <h1>Register</h1>
-        </div>
+        </Layout>
     )
 }
 

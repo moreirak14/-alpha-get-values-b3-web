@@ -1,8 +1,11 @@
+import Layout from "components/Layout";
+
+
 const HomePage = () => {
     return (
-        <div>
+        <Layout title='Alpha Invest | Home' content='Home Page'>
             <h1>Home</h1>
-        </div>
+        </Layout>
     )
 }
 
