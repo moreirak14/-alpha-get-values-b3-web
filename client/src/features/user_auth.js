@@ -90,6 +90,30 @@ export const login = createAsyncThunk(
 	}
 );
 
+export const logout = createAsyncThunk(
+	'users/logout',
+	async (_, thunkAPI) => {
+		try {
+			const res = await fetch('/api/users/logout', {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+				},
+			});
+
+			const data = await res.json();
+
+			if (res.status === 200) {
+				return data;
+			} else {
+				return thunkAPI.rejectWithValue(data);
+			}
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err.response.data);
+		}
+	}
+);
+
 const initialState = {
     isAuthenticated: false,
     user: null,
@@ -136,7 +160,18 @@ const userSlice = createSlice({
             })
             .addCase(getUser.rejected, state => {
                 state.loading = false;
-            });
+            })
+            .addCase(logout.pending, state => {
+				state.loading = true;
+			})
+			.addCase(logout.fulfilled, state => {
+				state.loading = false;
+				state.isAuthenticated = false;
+				state.user = null;
+			})
+			.addCase(logout.rejected, state => {
+				state.loading = false;
+			});
     },
 });
 
