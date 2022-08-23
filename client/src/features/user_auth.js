@@ -8,7 +8,7 @@ export const register = createAsyncThunk(
             first_name,
             last_name,
             email,
-            password
+            password,
         });
 
         try {
