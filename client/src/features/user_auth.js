@@ -90,6 +90,34 @@ export const login = createAsyncThunk(
 	}
 );
 
+export const checkAuth = createAsyncThunk(
+	'users/verify',
+	async (_, thunkAPI) => {
+		try {
+			const res = await fetch('/api/users/verify', {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+				},
+			});
+
+			const data = await res.json();
+
+			if (res.status === 200) {
+				const { dispatch } = thunkAPI;
+
+				dispatch(getUser());
+
+				return data;
+			} else {
+				return thunkAPI.rejectWithValue(data);
+			}
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const logout = createAsyncThunk(
 	'users/logout',
 	async (_, thunkAPI) => {
@@ -160,7 +188,17 @@ const userSlice = createSlice({
             })
             .addCase(getUser.rejected, state => {
                 state.loading = false;
-            })
+			})
+			.addCase(checkAuth.pending, state => {
+				state.loading = true;
+			})
+			.addCase(checkAuth.fulfilled, state => {
+				state.loading = false;
+				state.isAuthenticated = true;
+			})
+			.addCase(checkAuth.rejected, state => {
+				state.loading = false;
+			})
             .addCase(logout.pending, state => {
 				state.loading = true;
 			})
