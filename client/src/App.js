@@ -1,16 +1,20 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { checkAuth } from "features/user_auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-
 import HomePage from "containers/HomePage";
 import DashboardPage from "containers/DashboardPage";
 import LoginPage from "containers/LoginPage";
 import RegisterPage from "containers/RegisterPage";
 
-import { store } from "store";
+const App = () => {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
 
-const App = () => (
-  <Provider store={store}>
+  return (
     <Router>
       <Routes>
         <Route path='/' element={<HomePage />} />
@@ -19,7 +23,7 @@ const App = () => (
         <Route path='/register' element={<RegisterPage />} />
       </Routes>
     </Router>
-  </Provider>
-);
+  );
+};
 
 export default App;
