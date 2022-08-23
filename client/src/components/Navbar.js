@@ -1,8 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "features/user_auth";
 
 const Navbar = () => {
+    const dispatch = useDispatch();
     const { isAuthenticated } = useSelector(state => state.user);
 
     const authLinks = (
@@ -13,18 +14,18 @@ const Navbar = () => {
                 </NavLink>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#!">Logout</a>
+                <a className="nav-link" href="#!" onClick={() => dispatch(logout())}>Logout</a>
             </li>
-            {/* <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     My Actions
                 </a>
                 <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="#">PETR4</a></li>
-                    <li><a className="dropdown-item" href="#">ITSA4</a></li>
-                    <li><a className="dropdown-item" href="#">MGLU3</a></li>
+                    <li><a className="dropdown-item" href="#!">PETR4</a></li>
+                    <li><a className="dropdown-item" href="#!">ITSA4</a></li>
+                    <li><a className="dropdown-item" href="#!">MGLU3</a></li>
                 </ul>
-            </li> */}
+            </li>
         </>
     );
 
