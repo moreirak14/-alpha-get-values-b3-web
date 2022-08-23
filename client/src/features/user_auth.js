@@ -1,24 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_URL } from "config/index";
 
 
-export const register = createAsyncThunk('users/register/',
+export const register = createAsyncThunk(
+    'users/register',
     async ({ first_name, last_name, email, password }, thunkAPI) => { 
         const body = JSON.stringify({
             first_name,
             last_name,
             email,
             password
-        })
+        });
 
         try {
-            const res = await fetch(`${API_URL}/api/users/register/`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: body
+			const res = await fetch('/api/users/register', {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+                body: body,
             })
 
             const data = await res.json();
@@ -64,5 +64,5 @@ const userSlice = createSlice({
     }
 });
 
-export const {resetRegistered} = userSlice.actions
-export default userSlice.reducer
+export const { resetRegistered } = userSlice.actions;
+export default userSlice.reducer;

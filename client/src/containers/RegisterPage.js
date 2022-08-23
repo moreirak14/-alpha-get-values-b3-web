@@ -20,12 +20,12 @@ const RegisterPage = () => {
 
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    };
 
     const onSubmit = e => {
         e.preventDefault();
         dispatch(register({ first_name, last_name, email, password }));
-    }
+    };
 
     if (registered) return <Navigate to='/login' />;
 
